@@ -37,7 +37,7 @@ public class County extends LitePalSupport {//低版本使用DataSupport
         return cityId;
     }
 
-    public void seCityId(int cityId) {
+    public void setCityId(int cityId) {
         this.cityId =cityId;
     }
 }

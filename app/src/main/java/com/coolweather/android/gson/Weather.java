@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Weather {//总的实例类，用于引用basic aqi suggestion daily_forecast对应的实例类
     public String status;
-    public Basic bastic;
+    public Basic basic;
     public AQI aqi;
     public Now now;
     public Suggestion suggestion;

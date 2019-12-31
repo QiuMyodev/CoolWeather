@@ -15,9 +15,13 @@ import org.json.JSONObject;
 /**
  * Created by Administrator on 2019/12/24 0024.
  */
+
+//解析和处理服务器返回的省级数据（json格式）
+// 先使用JSONArray和JSONObject将数据解析出来，然后组装成实体类对象，再把数据写入数据库中
 public class Utility {
-    //解析和处理服务器返回的省级数据（json格式）,先使用JSONArray和JSONObject将数据解析出来，然后组装成实体类对象，再把数据写入数据库中
-    public static boolean handleProvinceResponse(String response) {//解析处理数据
+
+    public static boolean handleProvinceResponse(String response) {
+        //解析处理省级数据
         if (!TextUtils.isEmpty(response)) {
             try{
                 JSONArray allProvinces =new JSONArray(response);
@@ -27,7 +31,7 @@ public class Utility {
                     Province province=new Province();//创建对象
                     province.setProvinceName(provinceObject.getString("name"));//写入数据
                     province.setProvinceCode(provinceObject.getInt("id"));//写入数据
-                    province.save();//把数据写入数据库中
+                    province.save();//把数据保存数据库中
                 }
                 return true;//抓取成功
             }catch(JSONException e){
@@ -79,7 +83,7 @@ public class Utility {
         return false;//抓取失败
     }
 
-    //将返回的JSON数据解析成Weather实体类
+    //将返回的天气JSON数据解析成Weather实体类
 
     public static Weather handleWeatherResponse(String resopnse){
         try{

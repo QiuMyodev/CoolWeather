@@ -34,7 +34,7 @@ public class AutoUpdateService extends Service {
         updateWeather();//更新天气
         updateBingPic();//更新背景图片
         AlarmManager manager=(AlarmManager) getSystemService (ALARM_SERVICE);
-        int anHour =8*60*60*1000;//这是8小时的毫秒数，为保证软件不会消耗过多流量，设置更新时间间隔为8小时
+        int anHour =8*60*60*1000;//为保证软件不会消耗过多流量，设置更新时间间隔为8小时
         long triggerAtTime= SystemClock.elapsedRealtime()+anHour;
         Intent i=new Intent(this,AutoUpdateService.class);
         PendingIntent pi= PendingIntent.getService(this,0,i,0);
@@ -50,7 +50,7 @@ public class AutoUpdateService extends Service {
             Weather weather= Utility.handleWeatherResponse(weatherString);
             String weatherId=weather.basic.weatherId;
 
-            String weatherUrl="hettp://guolin.tech/api/weather?cityid="+weatherId+"&key=bc0418b57b2d4918819d3974ac1285d9";
+            String weatherUrl="http://guolin.tech/api/weather?cityid="+weatherId+"&key=bc0418b57b2d4918819d3974ac1285d9";
 
             HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
                 @Override

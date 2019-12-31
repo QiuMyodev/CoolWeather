@@ -65,13 +65,15 @@ public class ChooseAreaFragment extends Fragment{
     @Override
     //初始化控件实例
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
+
         View view=inflater.inflate(R.layout.choose_area, container, false);
+
         titleText =(TextView) view.findViewById(R.id.title_text);
         backButton=(Button) view.findViewById(R.id.back_button);
         listView=(ListView) view.findViewById(R.id.list_view);//显示列表
 //默认继承ArrayAdapter
-        adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,dataList);
-        listView.setAdapter(adapter);
+        adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,dataList);//绑定数据与listview
+        listView.setAdapter(adapter);//传入数据
 
         return view;
     }
@@ -90,7 +92,6 @@ public class ChooseAreaFragment extends Fragment{
                     queryCounties();
                 }else if(currentLevel ==LEVEL_COUNTY){
                     String weatherId=countyList.get(position).getWeatherId();
-
                     if(getActivity() instanceof MainActivity) {//用于判断该碎片对象是否为主活动的一个实例
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
                         intent.putExtra("weather_id", weatherId);
@@ -130,13 +131,12 @@ public class ChooseAreaFragment extends Fragment{
             for(Province province :provinceList){
                 dataList.add(province.getProvinceName());//遍历数组，按名称放入dataList
             }
-
             adapter.notifyDataSetChanged();
             listView.setSelection(0);//默认选中第0个
             currentLevel=LEVEL_PROVINCE;
         }else{
-            String address ="http//guolin.tech/api/china";
-            queryFromSever(address,"province");
+            String address ="http://guolin.tech/api/china";
+            queryFromServer(address,"province");
         }
     }
     //查询全国所有的市，优先从数据库查询，如果没有查询到再去服务器上查询
@@ -156,7 +156,7 @@ public class ChooseAreaFragment extends Fragment{
         }else{
             int provinceCode =selectedProvince.getProvinceCode();
             String address="http://guolin.tech/api/china/"+provinceCode;
-            queryFromSever(address,"city");
+            queryFromServer(address,"city");
         }
     }
     //查询全国所有的县，优先从数据库查询，如果没有查询到再去服务器上查询
@@ -177,11 +177,11 @@ public class ChooseAreaFragment extends Fragment{
             int provinceCode =selectedProvince.getProvinceCode();
             int cityCode =selectedCity.getCityCode();
             String address="http://guolin.tech/api/china/"+provinceCode+"/"+cityCode;
-            queryFromSever(address,"county");
+            queryFromServer(address,"county");
         }
     }
     //根据传入的地址和类型从服务器上查询省市县数据
-    private  void queryFromSever(String address,final String type){
+    private  void queryFromServer(String address,final String type){
         showProgressDialog();
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
@@ -196,7 +196,7 @@ public class ChooseAreaFragment extends Fragment{
                     result= Utility.handleCountyResponse(responseText,selectedCity.getId());//解析处理数据
                 }
                 if(result){
-                    getActivity().runOnUiThread(new Runnable(){
+                    getActivity().runOnUiThread(new Runnable(){//因为queryxxxx涉及到UI操作，因此从子线程切换到主线程
                         @Override
                         public void run() {
                             closeProgressDialog();//进度条关闭

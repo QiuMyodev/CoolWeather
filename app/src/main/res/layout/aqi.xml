@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
@@ -34,7 +35,6 @@
                     android:textSize="40sp"
                     android:textColor="#fff"/>
                 <TextView
-                    android:id="@+id/wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -57,6 +57,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="40sp"
+                    android:textColor="#fff"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PM2.5指数"
                     android:textColor="#fff"/>
             </LinearLayout>
         </RelativeLayout>

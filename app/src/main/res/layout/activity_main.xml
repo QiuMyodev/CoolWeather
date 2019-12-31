@@ -3,13 +3,16 @@
 
    <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       xmlns:tools="http://schemas.android.com/tools"
 
-    <fragment
-        android:id="@+id/choose_area_frament"
-        android:name="com.coolweather.android.ChooseAreaFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-</FrameLayout>
+       <fragment
+           android:id="@+id/choose_area_frament"
+           android:name="com.coolweather.android.ChooseAreaFragment"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           tools:layout="@layout/choose_area" />
+
+   </FrameLayout>
